@@ -11,4 +11,9 @@ class GameController extends Controller
         $games = Game::inRandomOrder()->limit(8)->get();
         return view('home')->with(['games' => $games]);
     }
+
+    public function search(Request $request){
+        $games = Game::where('name', 'LIKE', '%'.$request->name.'%')->paginate();
+        return view('home')->with(['games' => $games]);
+    }
 }

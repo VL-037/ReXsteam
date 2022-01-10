@@ -21,8 +21,8 @@
 
         <div class="collapse navbar-collapse" id="navbarColor01">
             <a href="/" class="mr-auto nav-link text-white">Home</a>
-            <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <form class="form-inline" action="/search" method="GET">
+                <input class="form-control mr-sm-2" type="text" name="name" placeholder="Search" aria-label="Search">
             </form>
             <ul class="navbar-nav">
                 <li class="nav-item">
