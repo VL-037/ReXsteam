@@ -12,18 +12,19 @@ use Symfony\Component\Console\Input\Input;
 class RegistrationController extends Controller
 {
     public function index() {
-        return view('register');
+        return view('users.register');
     }
 
     public function store(Request $request){
         $this->validate($request, [
-            'username' =>'required|min:6|max:255|unique:users',
+            'username' =>'required|min:6|max:255|unique:user',
             'fullname' =>'required',
             'password' =>'required|min:6|alpha_num',
             'role' => 'required'
         ]);
 
         $data = $request->all();
+        $data['password'] = Hash::make($data['password']);
 
         $user = User::create([
             'username' => $data['username'],

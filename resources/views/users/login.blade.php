@@ -1,4 +1,4 @@
-<form action="/auth" method="POST">
+<form action="/login" method="POST">
     @csrf
     @if (session()->has('success'))
         <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -12,7 +12,10 @@
     <input type="text" name="username" id="username"><br>
 
     <label for="password">Password</label>
-    <input type="password" name="password" id="password">
+    <input type="password" name="password" id="password"><br>
+
+    <input type="checkbox" name="remember" id="remember">
+    <label for="remember">Rember Me</label><br>
 
     <button type="submit">Submit</button>
 </form>

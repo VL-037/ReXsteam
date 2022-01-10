@@ -8,14 +8,15 @@ use Illuminate\Support\Facades\Auth;
 class AuthController extends Controller
 {
     public function index() {
-        return view('login');
+        return view('users.login');
     }
 
     public function login(Request $request){
         $username = $request->username;
         $password = $request->password;
+        $remember = $request->remember;
 
-        if (Auth::attempt(['username' => $username, 'password' => $password])) {
+        if (Auth::attempt(['username' => $username, 'password' => $password], $remember)) {
             return redirect()->intended();
         }
 
