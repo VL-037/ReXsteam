@@ -24,6 +24,6 @@ Route::get('games/{gameId}', [GameController::class, 'detail']);
 Route::get('/register', [RegistrationController::class, 'index']);
 Route::post('/register', [RegistrationController::class, 'store']);
 
-Route::get('/login', [AuthController::class, 'index']);
+Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
