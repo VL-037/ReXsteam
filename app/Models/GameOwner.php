@@ -5,13 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class GameOwner extends Model
 {
     use HasFactory;
 
-    protected $table = 'category';
-
-    public function games(){
-        return $this->hasMany(Game::class);
-    }
+    protected $table = 'game_owner';
 }

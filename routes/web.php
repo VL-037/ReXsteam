@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GameController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,3 +17,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [GameController::class, 'index']);
 Route::get('/search', [GameController::class, 'search']);
+Route::get('games/{gameId}', [GameController::class, 'detail']);
+
+Route::get('/login', [AuthController::class, 'index']);
+Route::post('/auth', [AuthController::class, 'auth']);
+Route::get('/logout', [AuthController::class, 'logout']);

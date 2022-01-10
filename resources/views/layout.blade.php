@@ -25,12 +25,36 @@
                 <input class="form-control mr-sm-2" type="text" name="name" placeholder="Search" aria-label="Search">
             </form>
             <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/register">Register</a>
-                </li>
+                @if (Auth::check())
+                    @if (Auth::user()->role == 'Member')
+                        <li class="nav-item">
+                            <a class="nav-link" href="/cart">CART</a>
+                        </li>
+                    @endif
+                    <li class="nav-item">
+                        <div class="dropdown btn-group">
+                            <p id="dropdownMenuButton" class="nav-link" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                @<span>{{ Auth::user()->username }}</span>
+                            </p>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/profile">Profile</a>
+                                @if (Auth::user()->role == 'Member')
+                                    <a class="dropdown-item" href="/friends">Friends</a>
+                                    <a class="dropdown-item" href="/transactions">Transaction History</a>
+                                @endif
+                                <a class="dropdown-item" href="/logout">Sign out</a>
+                            </div>
+                        </div>
+                    </li>
+                @else
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                @endif
             </ul>
         </div>
     </nav>

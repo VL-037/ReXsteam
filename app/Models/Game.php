@@ -9,6 +9,8 @@ class Game extends Model
 {
     use HasFactory;
 
+    protected $table = 'game';
+
     public function category() {
         return $this->belongsTo(Category::class);
     }

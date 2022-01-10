@@ -14,7 +14,7 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('categories')->insert([
+        DB::table('category')->insert([
             ['name' => 'Action'],
             ['name' => 'Shooter'],
             ['name' => 'Role-playing'],
