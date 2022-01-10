@@ -11,7 +11,7 @@ class AuthController extends Controller
         return view('login');
     }
 
-    public function auth(Request $request){
+    public function login(Request $request){
         $username = $request->username;
         $password = $request->password;
 
