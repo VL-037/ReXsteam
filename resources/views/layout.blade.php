@@ -25,7 +25,7 @@
                 <input class="form-control mr-sm-2" type="text" name="name" placeholder="Search" aria-label="Search">
             </form>
             <ul class="navbar-nav">
-                @if (Auth::check())
+                @auth
                     @if (Auth::user()->role == 'Member')
                         <li class="nav-item">
                             <a class="nav-link" href="/cart">CART</a>
@@ -33,8 +33,8 @@
                     @endif
                     <li class="nav-item">
                         <div class="dropdown btn-group">
-                            <p id="dropdownMenuButton" class="nav-link" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
+                            <p id="dropdownMenuButton" class="nav-link" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false">
                                 @<span>{{ Auth::user()->username }}</span>
                             </p>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
@@ -47,14 +47,15 @@
                             </div>
                         </div>
                     </li>
-                @else
+                @endauth
+                @guest
                     <li class="nav-item">
                         <a class="nav-link" href="/login">Login</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/register">Register</a>
                     </li>
-                @endif
+                @endguest
             </ul>
         </div>
     </nav>
