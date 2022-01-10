@@ -9,7 +9,6 @@ class GameController extends Controller
 {
     public function index(){
         $games = Game::inRandomOrder()->limit(8)->get();
-
-        return dd($games);
+        return view('home')->with(['games' => $games]);
     }
 }
