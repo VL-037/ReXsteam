@@ -14,10 +14,6 @@ class AdminController extends Controller
         return view('users.admins.manageGame')->with(['categories' => $categories, 'games' => $games]);
     }
 
-    public function gameNew() {
-        return view('users.admins.createGame');
-    }
-
     public function gameUpdateForm() {
         return view('users.admins.updateGame');
     }

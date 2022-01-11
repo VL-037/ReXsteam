@@ -2,13 +2,17 @@
 @section('content')
 
     <div class="container mt-5">
-        <div class="px-5">
-            asdsad
-            <div class="d-flex flex-row-reverse">
-                {{ $games->withQueryString()->links() }}
-                <h1 class="text-danger"><b>PAGINATION BELUM YAA</b></h1>
+        @if (session()->has('success'))
+            <div class="position-absolute">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
             </div>
-            asdsad
+        @endif
+        <div class="px-5">
             <h1><b>Manage Games</b></h1>
             <p><b>Filter by Games Name</b></p>
             <form action="/admin/games/filter" method="GET" class="mb-3">
@@ -80,6 +84,10 @@
                 </li>
             @endforeach
         </ul>
+        
+        <div class="d-flex flex-row-reverse">
+            {{ $games->withQueryString()->links() }}
+        </div>
     </div>
 
     <div class="position-fixed" style="z-index: 10000; right: 1%; bottom: 7%;">

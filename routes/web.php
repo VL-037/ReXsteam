@@ -28,7 +28,8 @@ Route::get('/admin/games/filter', [AdminController::class, 'filterSearch']);
 Route::delete('/admin/games/{gameId}', [AdminController::class, 'gameDestroy']);
 Route::get('/admin/games/{gameId}/update', [AdminController::class, 'gameUpdateForm']);
 Route::post('/admin/games/{gameId}/update', [AdminController::class, 'gameUpdate']);
-Route::get('/admin/games/new', [AdminController::class, 'gameNew']);
+Route::get('/admin/games/new', [GameController::class, 'newForm']);
+Route::post('/admin/games', [GameController::class, 'new']);
 
 Route::get('/register', [RegistrationController::class, 'index']);
 Route::post('/register', [RegistrationController::class, 'store']);
