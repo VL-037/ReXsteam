@@ -55,6 +55,39 @@ class GameController extends Controller
         return redirect('/admin/games')->with('success', 'Successfully Created A New Game');
     }
 
+    public function updateForm($gameId) {
+        $categories = Category::all();
+        $game = Game::where('id', $gameId)->first();
+        return view('users.admins.updateGame')->with(['game' => $game, 'categories' => $categories]);
+    }
+
+    public function update(Request $request) {
+        $data = $request->validate([
+            'description_short' =>'required',
+            'description_long' =>'required',
+            'category' => 'required',
+            'price' => 'required',
+            // 'cover' => 'required',
+            // 'trailer' => 'required',
+        ]);
+
+        Game::where('id', $request->id)->update([
+            'description_long' => $data['description_long'],
+            'description_short' => $data['description_short'],
+            'category_id' => $data['category'],
+            'price' => $data['price'],
+            'cover' => $request->cover ? $data['cover'] : "https://mobitekno.com/wp-content/uploads/2017/12/20171108094330_Review_Cover_Fire__Game_Action_Untuk_Fans_Militer_Modern-768x432.jpg",
+            'trailer' => $request->trailer ? $data['trailer'] : "https://www.bigbuckbunny.org/",
+        ]);
+
+        return redirect('/admin/games')->with('success', 'Successfully Update Game');
+    }
+
+    public function destroy($gameId) {
+        Game::destroy($gameId);
+        return redirect('/admin/games');
+    }
+
     public function search(Request $request){
         $games = Game::where('name', 'LIKE', '%'.$request->name.'%')->paginate(8);
         return view('games.search')->with(['games' => $games]);

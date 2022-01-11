@@ -14,15 +14,6 @@ class AdminController extends Controller
         return view('users.admins.manageGame')->with(['categories' => $categories, 'games' => $games]);
     }
 
-    public function gameUpdateForm() {
-        return view('users.admins.updateGame');
-    }
-
-    public function gameDestroy($gameId) {
-        Game::destroy($gameId);
-        return redirect('/admin/games');
-    }
-
     public function filterSearch(Request $request) {
         $categories = Category::all();
         $games = Game::where('name', 'LIKE', '%'.$request->name.'%')->paginate(8);

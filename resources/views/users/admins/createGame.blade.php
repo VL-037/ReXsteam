@@ -57,7 +57,7 @@
             <div class="row">
                 <div class="col  mb-3">
                     <a href="/admin/games"><button type="button" class="btn btn-secondary">Cancel</button></a>
-                    <form action="/admin/game" method="POST">
+                    <form action="/admin/games" method="POST">
                         @csrf
                         <button class="btn btn-success">Save</button>
                     </form>
