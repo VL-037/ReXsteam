@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\CartItem;
 use App\Models\Game;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,5 +17,10 @@ class UserController extends Controller
             return view('users.cart')->with(['games' => $games]);
         }
         return view('users.login');
+    }
+
+    public function destroyCartItem($cartItemId) {
+        CartItem::destroy($cartItemId);
+        return redirect('/cart');
     }
 }

@@ -30,3 +30,4 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
 Route::get('/cart', [UserController::class, 'cart']);
+Route::delete('cart/{gameId}', [UserController::class, 'destroyCartItem']);
