@@ -21,6 +21,11 @@
 
         <div class="collapse navbar-collapse" id="navbarColor01">
             <a href="/" class="mr-auto nav-link text-white">Home</a>
+            @auth
+                @if (Auth::user()->role == 'Admin')
+                    <a href="/admin/games" class="nav-link text-white">Manage Game</a>
+                @endif
+            @endauth
             <form class="form-inline" action="/search" method="GET">
                 <input class="form-control mr-sm-2" type="text" name="name" placeholder="Search" aria-label="Search">
             </form>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\RegistrationController;
@@ -21,6 +22,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [GameController::class, 'index']);
 Route::get('/search', [GameController::class, 'search']);
 Route::get('/games/{gameId}', [GameController::class, 'detail']);
+
+Route::get('/admin/games', [AdminController::class, 'gameIndex']);
+Route::get('/admin/games/filter', [AdminController::class, 'filterSearch']);
+Route::delete('/admin/games/{gameId}', [AdminController::class, 'gameDestroy']);
+Route::get('/admin/games/{gameId}/update', [AdminController::class, 'gameUpdateForm']);
+Route::post('/admin/games/{gameId}/update', [AdminController::class, 'gameUpdate']);
+Route::get('/admin/games/new', [AdminController::class, 'gameNew']);
 
 Route::get('/register', [RegistrationController::class, 'index']);
 Route::post('/register', [RegistrationController::class, 'store']);
