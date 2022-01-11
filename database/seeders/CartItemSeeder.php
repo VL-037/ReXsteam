@@ -17,6 +17,7 @@ class CartItemSeeder extends Seeder
         DB::table('cart_item')->insert([
             ['cart_id' => 1, 'game_id' => 1],
             ['cart_id' => 1, 'game_id' => 4],
+            ['cart_id' => 2, 'game_id' => 1],
         ]);
     }
 }
