@@ -18,7 +18,7 @@ class CreateGameTable extends Migration
             $table->string('name');
             $table->string('description_short');
             $table->string('description_long');
-            $table->foreignId('category_id')->constrained('category')->onUpdate('cascade')->onDelete('cascade');;
+            $table->foreignId('category_id')->constrained('category')->onUpdate('cascade')->onDelete('cascade');
             $table->string('developer');
             $table->string('publisher');
             $table->integer('price');

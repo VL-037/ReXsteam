@@ -16,7 +16,7 @@ class GameController extends Controller
 
     public function detail($gameId){
         $game = Game::where('id', $gameId)->first();
-        $isOwned = GameOwner::where('user_id', Auth::user()->id)->where('game_id', $gameId)->first() ? true : false;
+        $isOwned = Auth::user() ? (GameOwner::where('user_id', Auth::user()->id)->where('game_id', $gameId)->first() ? true : false) : false;
         return view('games.detail')->with(['game' => $game])->with(['isOwned' => $isOwned]);
     }
 

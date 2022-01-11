@@ -18,6 +18,10 @@ class User extends Authenticatable
         return $this->hasMany(Game::class);
     }
 
+    public function carts(){
+        return $this->hasMany(Cart::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *

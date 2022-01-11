@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\CartItem;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,7 +18,9 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
             GameSeeder::class,
             UserSeeder::class,
-            GameOwnerSeeder::class
+            GameOwnerSeeder::class,
+            CartSeeder::class,
+            CartItemSeeder::class
         ]);
     }
 }
