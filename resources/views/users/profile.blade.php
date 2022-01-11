@@ -39,9 +39,8 @@
                                 <input class="form-control" type="text" id="level" value="{{ $user->level }}" disabled>
                             </div>
                             <div class="col">
-                                <img src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
-                                    alt="{{ $user->username }}_profile" class="rounded-circle border border-secondary"
-                                    style="height: 10rem;">
+                                <img src="{{ $user->urlPic }}" alt="{{ $user->username }}_profile"
+                                    class="rounded-circle border border-secondary" style="height: 10rem;">
                             </div>
                         </div>
                         <div class="mb-3">

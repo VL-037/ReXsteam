@@ -38,10 +38,10 @@
                     @endif
                     <li class="nav-item">
                         <div class="dropdown btn-group">
-                            <p id="dropdownMenuButton" class="nav-link" data-toggle="dropdown" aria-haspopup="true"
+                            <div id="dropdownMenuButton" class="nav-link" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
-                                @<span>{{ Auth::user()->username }}</span>
-                            </p>
+                                <img src="{{ Auth::user()->urlPic }}" alt="{{ Auth::user()->username }}_profile" style="width: 2rem;" class="rounded-circle">
+                            </div>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                 <a class="dropdown-item" href="/profile">Profile</a>
                                 @if (Auth::user()->role == 'Member')

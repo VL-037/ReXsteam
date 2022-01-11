@@ -21,6 +21,7 @@ class CreateUserTable extends Migration
             $table->string('role');
             $table->string('remember_token')->nullable(true);
             $table->integer('level')->default(0);
+            $table->string('urlPic')->default("https://pbs.twimg.com/media/Dm1ncIyXsAAdIkq.jpg");
             $table->timestamps();
         });
     }
