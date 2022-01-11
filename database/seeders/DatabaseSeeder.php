@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             GameOwnerSeeder::class,
             CartSeeder::class,
-            CartItemSeeder::class
+            CartItemSeeder::class,
+            FriendSeeder::class
         ]);
     }
 }
