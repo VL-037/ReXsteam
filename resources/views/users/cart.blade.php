@@ -69,11 +69,9 @@
                         @endif
                     </b></p>
             </div>
-            <form action="/cart" method="POST">
-                @method('delete')
-                @csrf
+            <a href="/cart/transaction">
                 <button class="btn btn-success mr-auto" {{ count($games) > 0 ? '' : 'disabled' }}>Checkout</button>
-            </form>
+            </a>
         </div>
     </div>
 

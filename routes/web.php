@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [GameController::class, 'index']);
 Route::get('/search', [GameController::class, 'search']);
-Route::get('games/{gameId}', [GameController::class, 'detail']);
+Route::get('/games/{gameId}', [GameController::class, 'detail']);
 
 Route::get('/register', [RegistrationController::class, 'index']);
 Route::post('/register', [RegistrationController::class, 'store']);
@@ -30,5 +30,6 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
 Route::get('/cart', [UserController::class, 'cart']);
-Route::delete('cart/{gameId}', [UserController::class, 'destroyCartItem']);
-Route::delete('cart/', [UserController::class, 'checkout']);
+Route::delete('/cart/{gameId}', [UserController::class, 'destroyCartItem']);
+Route::get('/cart/transaction', [UserController::class, 'transactionIndex']);
+Route::delete('/cart/transaction', [UserController::class, 'checkout']);

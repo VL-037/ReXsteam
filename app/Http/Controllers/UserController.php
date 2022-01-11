@@ -25,11 +25,34 @@ class UserController extends Controller
         return redirect('/cart');
     }
 
+    public function transactionIndex() {
+        $cart = Auth::user() ? Cart::where('user_id', Auth::user()->id)->first() : null;
+        if($cart) {
+            $games = Game::join('cart_item', 'game_id', '=', 'game.id')->where(['cart_item.cart_id' => $cart->id])->with('cartItems')->get();
+            $totalPrice = 0;
+            if (count($games) > 0) {
+                foreach ($games as $game) {
+                    $totalPrice += $game->price;
+                }
+                return view('users.transaction')->with(['totalPrice' => $totalPrice]);
+            }
+            return back();
+        }
+        return view('users.login');
+    }
+
     public function checkout() {
         $cart = Auth::user() ? Cart::where('user_id', Auth::user()->id)->first() : null;
         if($cart) {
-            CartItem::where('cart_id', $cart->id)->delete();
-            return redirect('/cart');
+            $games = Game::join('cart_item', 'game_id', '=', 'game.id')->where(['cart_item.cart_id' => $cart->id])->with('cartItems')->get();
+            $totalPrice = 0;
+            if (count($games) > 0) {
+                foreach ($games as $game) {
+                    $totalPrice += $game->price;
+                }
+                return back();
+            }
+            return back();
         }
         return view('users.login');
     }
