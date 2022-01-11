@@ -40,6 +40,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
 Route::get('/profile', [UserController::class, 'profile']);
 Route::post('/profile', [UserController::class, 'updateProfile']);
+Route::get('/friends', [UserController::class, 'friends']);
 
 Route::get('/cart', [UserController::class, 'cart']);
 Route::delete('/cart/{gameId}', [UserController::class, 'destroyCartItem']);

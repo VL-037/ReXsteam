@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Friend;
 use App\Models\Game;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -64,7 +65,7 @@ class UserController extends Controller
         if ($user) {
             return view('users.profile')->with(['user' => $user]);
         }
-        return redirect('/profile');
+        return redirect('/login');
     }
 
     public function updateProfile(Request $request) {
@@ -89,6 +90,17 @@ class UserController extends Controller
             }
             return view('users.profile')->with(['user' => $user]);
         }
-        return redirect('/profile');
+        return redirect('/login');
+    }
+
+    public function friends() {
+        $user = Auth::user() ? User::where('id', Auth::user()->id)->first() : null;
+        if ($user) {
+            $friend1Ids = Friend::where('friend2_id', $user->id)->get('friend1_id');
+            $friend2Ids = Friend::where('friend1_id', $user->id)->get('friend2_id');
+            
+            
+        }
+        return redirect('/login');
     }
 }

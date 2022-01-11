@@ -15,7 +15,9 @@ class FriendSeeder extends Seeder
     public function run()
     {
         DB::table('friend')->insert([
-            ['friend1_id' => 3, 'friend2_id' => 4]
+            ['friend1_id' => 1, 'friend2_id' => 2],
+            ['friend1_id' => 3, 'friend2_id' => 1],
+            ['friend1_id' => 3, 'friend2_id' => 4],
         ]);
     }
 }

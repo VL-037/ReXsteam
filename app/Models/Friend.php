@@ -11,7 +11,7 @@ class Friend extends Model
 
     protected $table = 'friend';
 
-    public function user(){
+    public function otherFriend(){
         return $this->belongsTo(User::class);
     }
 }
