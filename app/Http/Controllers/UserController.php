@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Game;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
@@ -55,5 +57,38 @@ class UserController extends Controller
             return back();
         }
         return view('users.login');
+    }
+
+    public function profile() {
+        $user = Auth::user() ? User::where('id', Auth::user()->id)->first() : null;
+        if ($user) {
+            return view('users.profile')->with(['user' => $user]);
+        }
+        return redirect('/profile');
+    }
+
+    public function updateProfile(Request $request) {
+        $user = Auth::user() ? User::where('id', Auth::user()->id)->first() : null;
+        if ($user) {
+            $newPassword = $request->newPassword;
+            $confNewPassword = $request->confNewPassword;
+            if (Hash::check($request->currPassword, $user->password)) {
+                if ($newPassword && $confNewPassword) {
+                    if ($newPassword == $confNewPassword){
+                        User::where('id', $user->id)->update([
+                            'password' => Hash::make($newPassword)
+                        ]);
+                    }
+                }
+                if ($request->username != $user->username) {
+                    User::where('id', $user->id)->update([
+                        'username' => $request->username
+                    ]);
+                }
+                return redirect('/profile')->with(['user' => $user, 'success' => 'Profile Updated']);
+            }
+            return view('users.profile')->with(['user' => $user]);
+        }
+        return redirect('/profile');
     }
 }

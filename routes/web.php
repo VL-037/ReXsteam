@@ -38,6 +38,9 @@ Route::get('/login', [AuthController::class, 'index'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
+Route::get('/profile', [UserController::class, 'profile']);
+Route::post('/profile', [UserController::class, 'updateProfile']);
+
 Route::get('/cart', [UserController::class, 'cart']);
 Route::delete('/cart/{gameId}', [UserController::class, 'destroyCartItem']);
 Route::get('/cart/transaction', [UserController::class, 'transactionIndex']);
