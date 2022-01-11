@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,10 @@ class RegistrationController extends Controller
             'fullname' => $data['fullname'],
             'password' => $data['password'],
             'role' => $data['role']
+        ]);
+
+        Cart::create([
+            'user_id' => $user->id
         ]);
         
         Auth::login($user);
