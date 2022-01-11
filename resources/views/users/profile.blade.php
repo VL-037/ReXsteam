@@ -6,8 +6,10 @@
             <div class="col-3 py-2 border border-secondary border-left-0 border-top-0 border-bottom-0">
                 <ul class="list-unstyled">
                     <li><a href="/profile" class="text-dark active">Profile</a></li>
-                    <li><a href="/friends" class="text-dark">Friends</a></li>
-                    <li><a href="/transactionHistory" class="text-dark">Transaction History</a></li>
+                    @if ($user->role == 'Member')
+                        <li><a href="/friends" class="text-dark">Friends</a></li>
+                        <li><a href="/transactionHistory" class="text-dark">Transaction History</a></li>
+                    @endif
                 </ul>
             </div>
             <div class="col-9 py-2">
@@ -29,19 +31,23 @@
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label" for="username">Username</label>
-                                <input class="form-control" type="text" name="username" id="username" value="{{ $user->username }}">
-                            </div> 
+                                <input class="form-control" type="text" name="username" id="username"
+                                    value="{{ $user->username }}">
+                            </div>
                             <div class="col">
                                 <label class="form-label" for="level">Level</label>
                                 <input class="form-control" type="text" id="level" value="{{ $user->level }}" disabled>
                             </div>
                             <div class="col">
-                                <img src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg" alt="{{$user->username}}_profile" class="rounded-circle border border-secondary" style="height: 10rem;">
+                                <img src="https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+                                    alt="{{ $user->username }}_profile" class="rounded-circle border border-secondary"
+                                    style="height: 10rem;">
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="fullname">Fullname</label>
-                            <input class="form-control" type="text" name="fullname" id="fullname" value="{{ $user->fullname }}" disabled>
+                            <input class="form-control" type="text" name="fullname" id="fullname"
+                                value="{{ $user->fullname }}" disabled>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="currPassword">Current Password</label>
