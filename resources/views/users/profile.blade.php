@@ -22,6 +22,15 @@
                             </button>
                         </div>
                     </div>
+                @elseif (session()->has('error'))
+                    <div class="position-absolute">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ session('error') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
                 @endif
                 <h3><b>{{ $user->username }} Profile</b></h3>
                 <p><small>This infomation will be displayed publicity, so be careful what you share</small></p>

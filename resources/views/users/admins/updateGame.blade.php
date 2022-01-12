@@ -2,6 +2,16 @@
 @section('content')
 
     <div class="container mt-5">
+        @if (session()->has('error'))
+            <div class="position-absolute">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        @endif
         <h2><b>Update Game</b></h2>
         <form action="/admin/games/{{$game->id}}/update" method="POST">
             @csrf

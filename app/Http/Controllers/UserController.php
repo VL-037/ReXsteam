@@ -131,7 +131,7 @@ class UserController extends Controller
                 }
                 return redirect('/profile')->with(['user' => $user, 'success' => 'Profile Updated']);
             }
-            return view('users.profile')->with(['user' => $user]);
+            return redirect('/profile')->with(['user' => $user, 'error' => 'Update Failed']);
         }
         return redirect('/login');
     }

@@ -89,21 +89,28 @@ class GameController extends Controller
     }
 
     public function update(Request $request) {
-        $data = $request->validate([
-            'description_short' =>'required',
-            'description_long' =>'required',
+        $data = $request->except(array('_token'));
+        $rule = array(
+            'description_short' =>'required|max:500',
+            'description_long' =>'required|max:2000',
             'category' => 'required',
-            'price' => 'required',
-            // 'cover' => 'required',
-            // 'trailer' => 'required',
-        ]);
+            'price' => 'required|numeric|min:1|max:1000000',
+            // 'cover' => 'required|mimes:jpg|max:100',
+            // 'trailer' => 'required|mimes:webm|max:102400',
+        );
+
+        $validator = Validator::make($data, $rule);
+
+        if($validator->fails()) {
+            return redirect('/admin/games/'.$request->id.'/update')->with('error', 'Invalid input');
+        }
 
         Game::where('id', $request->id)->update([
             'description_long' => $data['description_long'],
             'description_short' => $data['description_short'],
             'category_id' => $data['category'],
             'price' => $data['price'],
-            'cover' => $request->cover ? $data['cover'] : "https://mobitekno.com/wp-content/uploads/2017/12/20171108094330_Review_Cover_Fire__Game_Action_Untuk_Fans_Militer_Modern-768x432.jpg",
+            'cover' => "https://image.shutterstock.com/image-vector/futuristic-black-red-gaming-banner-260nw-1940014285.jpg",
             'trailer' => $request->trailer ? $data['trailer'] : "https://www.bigbuckbunny.org/",
         ]);
 
