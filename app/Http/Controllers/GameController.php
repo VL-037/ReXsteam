@@ -96,7 +96,7 @@ class GameController extends Controller
             'description_long' =>'required|max:2000',
             'category' => 'required',
             'price' => 'required|numeric|min:1|max:1000000',
-            'cover' => 'required|mimes:jpg|max:100',
+            'cover' => 'required|mimes:jpg|max:800',
             // 'trailer' => 'required|mimes:webm|max:102400',
         );
 
