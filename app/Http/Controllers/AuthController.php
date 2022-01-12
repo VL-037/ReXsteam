@@ -20,7 +20,7 @@ class AuthController extends Controller
             return redirect()->intended();
         }
 
-        return back();
+        return redirect('/login')->with('error', 'Invalid Credentials');
     }
 
     public function logout() {

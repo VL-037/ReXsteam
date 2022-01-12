@@ -1,21 +1,36 @@
-<form action="/login" method="POST">
-    @csrf
-    @if (session()->has('success'))
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            {{ session('success') }}
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-    @endif
-    <label for="username">Username</label>
-    <input type="text" name="username" id="username"><br>
+@extends('layouts.layout')
+@section('content')
 
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password"><br>
+    <div class="container mt-5">
+        <form action="/login" method="POST">
+            @csrf
+            @if (session()->has('error'))
+                <div class="position-absolute">
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ session('error') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            @endif
+            <div class="mb-3">
+                <label class="form-label" for="username">Username</label>
+                <input class="form-control" type="text" name="username" id="username">
+            </div>
 
-    <input type="checkbox" name="remember" id="remember">
-    <label for="remember">Rember Me</label><br>
+            <div class="mb-3">
+                <label class="form-label" for="password">Password</label>
+                <input class="form-control" type="text" name="password" id="password">
+            </div>
 
-    <button type="submit">Submit</button>
-</form>
+            <div class="mb-3">
+                <input type="checkbox" name="remember" id="remember">
+                <label for="remember">Rember Me</label><br>
+            </div>
+
+            <button class="btn btn-success">Submit</button>
+        </form>
+    </div>
+
+@endsection
