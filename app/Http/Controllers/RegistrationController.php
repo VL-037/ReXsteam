@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
-use Symfony\Component\Console\Input\Input;
+use Illuminate\Support\Facades\Validator;
 
 class RegistrationController extends Controller
 {
@@ -17,12 +17,19 @@ class RegistrationController extends Controller
     }
 
     public function store(Request $request){
-        $this->validate($request, [
-            'username' =>'required|min:6|max:255|unique:user',
+        $data = $request->except(array('_token'));
+        $rule = array(
+            'username' =>'required|min:6|unique:user',
             'fullname' =>'required',
             'password' =>'required|min:6|alpha_num',
             'role' => 'required'
-        ]);
+        );
+
+        $validator = Validator::make($data, $rule);
+
+        if($validator->fails()) {
+            return redirect('/register')->with('error', 'Invalid input');
+        }
 
         $data = $request->all();
         $data['password'] = Hash::make($data['password']);
