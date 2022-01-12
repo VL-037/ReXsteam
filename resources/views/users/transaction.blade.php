@@ -3,9 +3,8 @@
 
     <div class="container mt-5">
         <h2><b>Transaction Page</b></h2>
-        <form action="/cart" method="POST">
+        <form action="/cart/transaction" method="POST">
             @csrf
-            @method('delete')
 
             <div class="row">
                 <div class="form-group col mb-3">
@@ -58,12 +57,8 @@
             <div class="row">
                 <div class="col form-group mb-3">
                     <p>Total Price: <b>{{$totalPrice}}</b></p>
-                    <button class="btn btn-secondary">Cancel</button>
-                    <form action="/cart/transaction" method="POST">
-                        @csrf
-                        @method('delete')
-                        <button class="btn btn-success">Checkout</button>
-                    </form>
+                    <a href="/cart"><button type="button" class="btn btn-secondary">Cancel</button></a>
+                    <button class="btn btn-success" type="submit">Checkout</button>
                 </div>
             </div>
         </form>

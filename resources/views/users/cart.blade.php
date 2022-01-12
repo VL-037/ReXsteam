@@ -59,6 +59,7 @@
             <a href="/cart/transaction">
                 <button class="btn btn-success mr-auto" {{ count($games) > 0 ? '' : 'disabled' }}>Checkout</button>
             </a>
+            </form>
         </div>
     </div>
 

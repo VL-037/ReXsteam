@@ -44,6 +44,7 @@ Route::post('/profile', [UserController::class, 'updateProfile']);
 Route::get('/friends', [UserController::class, 'friends']);
 
 Route::get('/cart', [UserController::class, 'cart']);
+Route::delete('/cart', [UserController::class, 'checkout']);
 Route::delete('/cart/{gameId}', [UserController::class, 'destroyCartItem']);
 Route::get('/cart/transaction', [UserController::class, 'transactionIndex']);
-Route::delete('/cart/transaction', [UserController::class, 'checkout']);
+Route::post('/cart/transaction', [UserController::class, 'checkout']);
