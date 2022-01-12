@@ -32,6 +32,9 @@
                 </li>
             @endfor
         </ul>
+        <div class="container d-flex flex-row-reverse">
+            {{ $games->withQueryString()->links() }}
+        </div>
     </div>
 
 @endsection

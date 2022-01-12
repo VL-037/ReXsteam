@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class GameController extends Controller
 {
     public function index(){
-        $games = Game::inRandomOrder()->limit(8)->get();
+        $games = Game::inRandomOrder()->paginate(8);
         return view('games.home')->with(['games' => $games]);
     }
 
