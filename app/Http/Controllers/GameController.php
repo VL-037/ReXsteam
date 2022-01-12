@@ -9,6 +9,7 @@ use App\Models\Game;
 use App\Models\GameOwner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class GameController extends Controller
 {
@@ -46,17 +47,24 @@ class GameController extends Controller
     }
 
     public function new(Request $request) {
-        $data = $request->validate([
-            'name' =>'required',
-            'description_short' =>'required',
-            'description_long' =>'required',
+        $data = $request->except(array('_token'));
+        $rule = array(
+            'name' =>'required|unique:game',
+            'description_short' =>'required|max:500',
+            'description_long' =>'required|max:2000',
             'category' => 'required',
             'developer' => 'required',
             'publisher' => 'required',
-            'price' => 'required',
-            // 'cover' => 'required',
-            // 'trailer' => 'required',
-        ]);
+            'price' => 'required|numeric|min:1|max:1000000',
+            // 'cover' => 'required|mimes:jpg|max:100',
+            // 'trailer' => 'required|mimes:webm|max:102400',
+        );
+
+        $validator = Validator::make($data, $rule);
+
+        if($validator->fails()) {
+            return redirect('/admin/games/new')->with('error', 'Invalid input');
+        }
 
         Game::create([
             'name' => $data['name'],
