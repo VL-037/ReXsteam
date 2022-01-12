@@ -7,6 +7,7 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Friend;
 use App\Models\Game;
+use App\Models\GameOwner;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -72,6 +73,7 @@ class UserController extends Controller
                 return redirect('/cart/transaction')->with('error', 'Invalid input');
             }
             
+            $user = Auth::user();
             Card::create([
                 'name' => $data['name'],
                 'number' => $data['number'],
@@ -80,13 +82,21 @@ class UserController extends Controller
                 'CVC_CVV' => $data['CVC_CVV'],
                 'country' => $data['country'],
                 'postalCode' => $data['postalCode'],
-                'name' => $data['name'],
+                'user_id' => $user->id
             ]);
-
-            $user = Auth::user();
+            
             User::where('id', $user->id)->update([
                 'level' => $user->level+=1
             ]);
+            
+            $gameIds = CartItem::where('cart_id', $cart->id)->get('game_id');
+            for ($i=0 ; $i<count($gameIds) ; $i++) {
+                GameOwner::create([
+                    'user_id' => $user->id,
+                    'game_id' => $gameIds[$i]->game_id
+                ]);
+            }
+
             CartItem::where('cart_id', $cart->id)->delete();
             return redirect('/cart');
         }

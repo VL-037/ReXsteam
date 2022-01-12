@@ -10,4 +10,6 @@ class GameOwner extends Model
     use HasFactory;
 
     protected $table = 'game_owner';
+
+    protected $guarded = ['id'];
 }

@@ -51,7 +51,7 @@
                 <div class="form-group col-md-8 mb-3">
                     <label for="country">Country</label>
                     <select id="country" name="country" class="form-control">
-                        <optionn value="Indonesia" selected>Indonesia</option>
+                        <option value="Indonesia" selected>Indonesia</option>
                         <option value="Argentina">Argentina</option>
                         <option value="USA">USA</option>
                         <option value="Germany">Germany</option>
