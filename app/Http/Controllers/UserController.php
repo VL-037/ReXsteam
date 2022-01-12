@@ -18,7 +18,13 @@ class UserController extends Controller
         $cart = Auth::user() ? Cart::where('user_id', Auth::user()->id)->first() : null;
         if($cart) {
             $games = Game::join('cart_item', 'game_id', '=', 'game.id')->where(['cart_item.cart_id' => $cart->id])->with('cartItems')->get();
-            return view('users.cart')->with(['games' => $games]);
+            $totalPrice = 0;
+            if (count($games) > 0) {
+                foreach ($games as $game) {
+                    $totalPrice += $game->price;
+                }
+            }
+            return view('users.cart')->with(['games' => $games, 'totalPrice' => $totalPrice]);
         }
         return view('users.login');
     }

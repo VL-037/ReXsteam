@@ -54,20 +54,7 @@
         <div class="card rounded p-2">
             <div id="total-price">
                 Total Price:
-                <p><b>
-                        Rp.
-                        @if (count($games) <= 0)
-                            {{ 0 }}
-                        @else
-                            @if (count($games) == 1)
-                                {{ $games[0]->price }}
-                            @else
-                                @for ($i = 0; $i < count($games) - 1; $i++)
-                                    {{ $games[$i]->price += $games[$i + 1]->price }}
-                                @endfor
-                            @endif
-                        @endif
-                    </b></p>
+                <p><b>Rp. {{$totalPrice}}</b></p>
             </div>
             <a href="/cart/transaction">
                 <button class="btn btn-success mr-auto" {{ count($games) > 0 ? '' : 'disabled' }}>Checkout</button>
