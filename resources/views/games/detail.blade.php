@@ -43,7 +43,11 @@
             @if (!Auth::user() || Auth::user()->role == 'Member')
                 <div class="border border-secondary p-3 rounded mb-3">
                     <p class="mb-3"><b>Buy {{ $game->name }}</b></p>
-                    <a href=""><button class="btn btn-success">${{ $game->price }} | Add to Cart</button></a>
+                    <form action="/games/{{ $game->id }}" method="POST">
+                        @csrf
+                        <p><b>Rp. {{$game->price}}</b></p>
+                        <button class="btn btn-success">Add To Cart</button>
+                    </form>
                 </div>
             @endif
         @endif

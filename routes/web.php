@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [GameController::class, 'index']);
 Route::get('/search', [GameController::class, 'search']);
 Route::get('/games/{gameId}', [GameController::class, 'detail']);
+Route::post('/games/{gameId}', [GameController::class, 'addToCart']);
 
 Route::get('/admin/games', [AdminController::class, 'gameIndex']);
 Route::get('/admin/games/filter', [AdminController::class, 'filterSearch']);
