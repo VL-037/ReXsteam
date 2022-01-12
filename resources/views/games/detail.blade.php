@@ -22,10 +22,9 @@
             </div>
         @endif
         <div class="d-flex mb-3">
-            <source class="flex-grow-1" src="{{ $game->trailer }}" type="video/webm">
-            <img class="rounded flex-grow-1"
-                src="{{ $game->cover }}" style="width: 100%; height: 20rem;"
-                alt="{{ $game->cover }}_cover">
+            <video class="flex-grow-1" style="width: 100%; height: 20rem;" controls="controls" preload="none">
+                <source src="{{ $game->trailer }}" type="video/webm">
+            </video>
             <div class="px-2">
                 <img class="rounded"
                     src="{{ $game->cover }}"

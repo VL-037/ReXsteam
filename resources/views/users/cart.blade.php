@@ -7,9 +7,7 @@
             <div class="card rounded py-2">
                 <div class="justify-content-between">
                     <div class="d-flex game-content">
-                        <img style="height: 10vw"
-                            src="https://mobitekno.com/wp-content/uploads/2017/12/20171108094330_Review_Cover_Fire__Game_Action_Untuk_Fans_Militer_Modern-768x432.jpg"
-                            alt="cart_item_image" class="mx-2">
+                        <img style="height: 10vw; width: 20rem" src="{{ $game->cover }}" alt="cart_item_image" class="mx-2">
                         <div class="game-detail">
                             <div class="d-flex">
                                 <h4><b>{{ $game->name }}</b></h4>
@@ -54,7 +52,7 @@
         <div class="card rounded p-2">
             <div id="total-price">
                 Total Price:
-                <p><b>Rp. {{$totalPrice}}</b></p>
+                <p><b>Rp. {{ $totalPrice }}</b></p>
             </div>
             <a href="/cart/transaction">
                 <button class="btn btn-success mr-auto" {{ count($games) > 0 ? '' : 'disabled' }}>Checkout</button>
