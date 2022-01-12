@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Card;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Friend;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -50,9 +52,37 @@ class UserController extends Controller
         return view('users.login');
     }
 
-    public function checkout() {
+    public function checkout(Request $request) {
         $cart = Auth::user() ? Cart::where('user_id', Auth::user()->id)->first() : null;
         if($cart) {
+            $data = $request->except(array('_token'));
+            $rule = array(
+                'name' =>'required|min:6',
+                'number' =>'required|numeric',
+                'expiredDateM' =>'required|numeric|min:1|max:12',
+                'expiredDateY' => 'required|numeric|min:2021|max:2050',
+                'CVC_CVV' => 'required|digits_between:3,4',
+                'country' => 'required',
+                'postalCode' => 'required|numeric'
+            );
+
+            $validator = Validator::make($data, $rule);
+
+            if($validator->fails()) {
+                return redirect('/cart/transaction')->with('error', 'Invalid input');
+            }
+            
+            Card::create([
+                'name' => $data['name'],
+                'number' => $data['number'],
+                'expiredDateM' => $data['expiredDateM'],
+                'expiredDateY' => $data['expiredDateY'],
+                'CVC_CVV' => $data['CVC_CVV'],
+                'country' => $data['country'],
+                'postalCode' => $data['postalCode'],
+                'name' => $data['name'],
+            ]);
+
             $user = Auth::user();
             User::where('id', $user->id)->update([
                 'level' => $user->level+=1

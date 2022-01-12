@@ -20,7 +20,7 @@ class CreateCardTable extends Migration
             $table->string('expiredDateM');
             $table->string('expiredDateY');
             $table->string('CVC_CVV');
-            $table->string('cardCountry');
+            $table->string('country');
             $table->string('postalCode');
             $table->timestamps();
         });
