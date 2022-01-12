@@ -24,11 +24,11 @@
         <div class="d-flex mb-3">
             <source class="flex-grow-1" src="{{ $game->trailer }}" type="video/webm">
             <img class="rounded flex-grow-1"
-                src="https://mobitekno.com/wp-content/uploads/2017/12/20171108094330_Review_Cover_Fire__Game_Action_Untuk_Fans_Militer_Modern-768x432.jpg"
+                src="{{ $game->cover }}" style="width: 100%; height: 20rem;"
                 alt="{{ $game->cover }}_cover">
             <div class="px-2">
                 <img class="rounded"
-                    src="https://mobitekno.com/wp-content/uploads/2017/12/20171108094330_Review_Cover_Fire__Game_Action_Untuk_Fans_Militer_Modern-768x432.jpg"
+                    src="{{ $game->cover }}"
                     alt="{{ $game->cover }}_cover" style="width: 100%">
                 <h4><b>{{ $game->name }}</b></h4>
                 <p>{{ $game->description_short }}</p>

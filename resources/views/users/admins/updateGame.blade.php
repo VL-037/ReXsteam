@@ -13,7 +13,7 @@
             </div>
         @endif
         <h2><b>Update Game</b></h2>
-        <form action="/admin/games/{{$game->id}}/update" method="POST">
+        <form action="/admin/games/{{$game->id}}/update" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="id" value="{{$game->id}}">
             <div class="mb-3">

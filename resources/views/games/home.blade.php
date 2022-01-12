@@ -18,8 +18,7 @@
                 <li class="list-unstyled mb-3 col">
                     <div class="card" style="width: 20rem;">
                         <a href="/games/{{ $games[$i]->id }}">
-                            <img src="https://mobitekno.com/wp-content/uploads/2017/12/20171108094330_Review_Cover_Fire__Game_Action_Untuk_Fans_Militer_Modern-768x432.jpg"
-                                alt="" style="width: 100%;">
+                            <img src="{{ $games[$i]->cover }}" alt="" style="width: 100%;">
                         </a>
                         <div class="card-body">
                             <p class="card-title"><b>{{ $games[$i]->name }}</b></p>

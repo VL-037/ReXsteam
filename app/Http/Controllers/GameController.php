@@ -9,6 +9,7 @@ use App\Models\Game;
 use App\Models\GameOwner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class GameController extends Controller
@@ -95,7 +96,7 @@ class GameController extends Controller
             'description_long' =>'required|max:2000',
             'category' => 'required',
             'price' => 'required|numeric|min:1|max:1000000',
-            // 'cover' => 'required|mimes:jpg|max:100',
+            'cover' => 'required|mimes:jpg|max:100',
             // 'trailer' => 'required|mimes:webm|max:102400',
         );
 
@@ -104,13 +105,15 @@ class GameController extends Controller
         if($validator->fails()) {
             return redirect('/admin/games/'.$request->id.'/update')->with('error', 'Invalid input');
         }
+        
+        Storage::disk('public')->put('images', $request->cover);
 
         Game::where('id', $request->id)->update([
             'description_long' => $data['description_long'],
             'description_short' => $data['description_short'],
             'category_id' => $data['category'],
             'price' => $data['price'],
-            'cover' => "https://image.shutterstock.com/image-vector/futuristic-black-red-gaming-banner-260nw-1940014285.jpg",
+            'cover' => '/uploads/images/'.$request->cover->hashName(),
             'trailer' => $request->trailer ? $data['trailer'] : "https://www.bigbuckbunny.org/",
         ]);
 
