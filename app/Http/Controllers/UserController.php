@@ -99,7 +99,7 @@ class UserController extends Controller
             }
 
             CartItem::where('cart_id', $cart->id)->delete();
-            return redirect('/cart');
+            return redirect('/cart')->with('success', 'Games Checked Out, +1 Level');
         }
         return redirect('/');
     }

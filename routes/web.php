@@ -19,12 +19,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [GameController::class, 'index'])->middleware('auth');
-Route::get('/search', [GameController::class, 'search'])->middleware('auth');
-Route::get('/games/{gameId}', [GameController::class, 'detail'])->middleware('auth');
+Route::get('/', [GameController::class, 'index']);
+Route::get('/search', [GameController::class, 'search']);
+Route::get('/games/{gameId}', [GameController::class, 'detail']);
 Route::post('/games/{gameId}', [GameController::class, 'addToCart'])->middleware('auth');
-Route::get('/games/{gameId}/checkAge', [GameController::class, 'checkAgeForm'])->middleware('auth');
-Route::post('/games/{gameId}/checkAge', [GameController::class, 'checkAge'])->middleware('auth');
+Route::get('/games/{gameId}/checkAge', [GameController::class, 'checkAgeForm']);
+Route::post('/games/{gameId}/checkAge', [GameController::class, 'checkAge']);
 
 Route::get('/admin/games', [AdminController::class, 'gameIndex'])->middleware('auth', 'role:Admin');
 Route::get('/admin/games/filter', [AdminController::class, 'filterSearch'])->middleware('auth', 'role:Admin');;
