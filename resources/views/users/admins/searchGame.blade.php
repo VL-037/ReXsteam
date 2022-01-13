@@ -3,12 +3,6 @@
 
     <div class="container mt-5">
         <div class="px-5">
-            asdsad
-            <div class="d-flex flex-row-reverse">
-                {{-- {{ $games->withQueryString()->links() }} --}}
-                <h1 class="text-danger"><b>PAGINATION BELUM YAA</b></h1>
-            </div>
-            asdsad
             <h1><b>Manage Games</b></h1>
             <p><b>Filter by Games Name</b></p>
             <form action="/admin/games/filter" method="GET" class="mb-3">
@@ -34,8 +28,7 @@
                     <li class="list-unstyled mb-3 col">
                         <div class="card" style="width: 20rem;">
                             <a href="/games/{{ $game->id }}">
-                                <img src="https://mobitekno.com/wp-content/uploads/2017/12/20171108094330_Review_Cover_Fire__Game_Action_Untuk_Fans_Militer_Modern-768x432.jpg"
-                                    alt="" style="width: 100%;">
+                                <img src="{{ $game->cover }}" alt="" style="width: 100%;">
                             </a>
                             <div class="card-body">
                                 <p class="card-title"><b>{{ $game->name }}</b></p>
@@ -83,6 +76,9 @@
                 <p>There are no Games content can be showed</p>
             @endif
         </ul>
+        <div class="d-flex flex-row-reverse">
+            {{ $games->withQueryString()->links() }}
+        </div>
     </div>
 
     <div class="position-fixed" style="z-index: 10000; right: 1%; bottom: 7%;">
