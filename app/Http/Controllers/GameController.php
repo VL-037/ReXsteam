@@ -127,8 +127,8 @@ class GameController extends Controller
             'description_long' =>'required|max:2000',
             'category' => 'required',
             'price' => 'required|numeric|min:1|max:1000000',
-            'cover' => 'required|mimes:jpg,png|max:800',
-            'trailer' => 'required|mimes:webm|max:102400',
+            'cover' => 'mimes:jpg,png|max:800',
+            'trailer' => 'mimes:webm|max:102400',
         );
 
         $validator = Validator::make($data, $rule);
@@ -136,19 +136,26 @@ class GameController extends Controller
         if($validator->fails()) {
             return redirect('/admin/games/'.$request->id.'/update')->with('error', 'Invalid input');
         }
-        
-        Storage::disk('public')->put('images', $request->cover);
-        Storage::disk('public')->put('videos', $request->trailer);
 
         Game::where('id', $request->id)->update([
             'description_long' => $data['description_long'],
             'description_short' => $data['description_short'],
             'category_id' => $data['category'],
             'price' => $data['price'],
-            'cover' => '/uploads/images/'.$request->cover->hashName(),
-            'trailer' => '/uploads/videos/'.$request->trailer->hashName(),
         ]);
-
+        
+        if ($request->hasFile('cover')) {
+            Storage::disk('public')->put('images', $request->cover);
+            Game::where('id', $request->id)->update([
+                'cover' => '/uploads/images/'.$request->cover->hashName(),
+            ]);
+        }
+        if ($request->hasFile('trailer')) {
+            Storage::disk('public')->put('videos', $request->trailer);
+            Game::where('id', $request->id)->update([
+                'trailer' => '/uploads/videos/'.$request->trailer->hashName(),
+            ]);
+        }
         return redirect('/admin/games')->with('success', 'Successfully Update Game');
     }
 
