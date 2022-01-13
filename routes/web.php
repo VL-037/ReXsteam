@@ -44,6 +44,7 @@ Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
 Route::get('/profile', [UserController::class, 'profile']);
 Route::post('/profile', [UserController::class, 'updateProfile']);
 Route::get('/friends', [UserController::class, 'friends']);
+Route::get('/transactions', [UserController::Class, 'transactionHistory']);
 
 Route::get('/cart', [UserController::class, 'cart']);
 Route::delete('/cart', [UserController::class, 'checkout']);

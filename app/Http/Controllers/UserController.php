@@ -160,6 +160,22 @@ class UserController extends Controller
         if ($user) {
             $friend1Ids = Friend::where('friend2_id', $user->id)->get('friend1_id');
             $friend2Ids = Friend::where('friend1_id', $user->id)->get('friend2_id');
+
+            return view('users.friends');
+
+        }
+        return redirect('/login');
+    }
+
+    public function transactionHistory(){
+        $user = Auth::user() ? User::where('id', Auth::user()->id)->first() : null;
+        if ($user) {
+
+          
+            
+            return view('users.transactionHistory')->with('user', $user);
+            
+
         }
         return redirect('/login');
     }
