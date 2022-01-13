@@ -71,7 +71,7 @@
     </div>
 
     <footer class="footer bg-dark text-light text-center sticky-bottom">
-        <small>© ReXsteam - Vincent Low, Jiwa</small>
+        <small>© ReXsteam - Vincent Low, Jiswa</small>
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
