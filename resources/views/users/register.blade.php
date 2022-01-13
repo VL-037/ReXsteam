@@ -39,6 +39,7 @@
 
             <button class="btn btn-success">Sign Up</button>
         </form>
+        <p>Already have account? <a href="/login">Login</a></p>
     </div>
 
 @endsection

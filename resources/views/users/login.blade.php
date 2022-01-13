@@ -26,11 +26,12 @@
 
             <div class="mb-3">
                 <input type="checkbox" name="remember" id="remember">
-                <label for="remember">Rember Me</label><br>
+                <label for="remember">Rememeber Me</label><br>
             </div>
 
             <button class="btn btn-success">Submit</button>
         </form>
+        <p>Don't have account? <a href="/register">Register</a></p>
     </div>
 
 @endsection

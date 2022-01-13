@@ -8,7 +8,7 @@
                     <li><a href="/profile" class="text-dark active">Profile</a></li>
                     @if ($user->role == 'Member')
                         <li><a href="/friends" class="text-dark">Friends</a></li>
-                        <li><a href="/transactionHistory" class="text-dark">Transaction History</a></li>
+                        <li><a href="/transactions" class="text-dark">Transaction History</a></li>
                     @endif
                 </ul>
             </div>
@@ -41,16 +41,17 @@
                     <p><b>Pending Friend Request</b></p>
                 </div>
                 <div id="your-friends-container" class="mb-3">
-                    <p><b>You Friends</b></p>
-                    {{$myFriends}} <br><br>
-                    @foreach ($myFriends as $myFriend)
-                        @if ($user->id == $myFriend->friend1_id)
-                            {{-- <b>{{$myFriend->otherFriend->id}}</b> --}}
-                            {{$myFriend->friend2_id}}
-                        @elseif ($user->id == $myFriend->friend2_id)
-                            {{$myFriend->friend1_id}}
-                        @endif
-                    @endforeach
+                    <p><b>Your Friends</b></p>
+                    @if ($myFriends !=null || count($myFriends) > 0)
+                        @foreach ($myFriends as $myFriend)
+                            @if ($user->id == $myFriend->friend1_id)
+                                <b>{{$myFriend->otherFriend->id}}</b>
+                                {{$myFriend->friend2_id}}
+                            @elseif ($user->id == $myFriend->friend2_id)
+                                {{$myFriend->friend1_id}}
+                            @endif
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>

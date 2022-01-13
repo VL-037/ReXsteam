@@ -20,6 +20,11 @@ class UserController extends Controller
 {
     public function cart() {
         $cart = Auth::user() ? Cart::where('user_id', Auth::user()->id)->first() : null;
+        if (Auth::user() && Auth::user()->role == "Member" && $cart == null) {
+            $cart = Cart::create([
+                'user_id' => Auth::user()->id
+            ]);
+        }
         if($cart) {
             $games = Game::join('cart_item', 'game_id', '=', 'game.id')->where(['cart_item.cart_id' => $cart->id])->with('cartItems')->get();
             $totalPrice = 0;
@@ -157,12 +162,12 @@ class UserController extends Controller
 
     public function friends() {
         $user = Auth::user() ? User::where('id', Auth::user()->id)->first() : null;
-        dd($user);
         if ($user) {
             $friend1Ids = Friend::where('friend2_id', $user->id)->get('friend1_id');
             $friend2Ids = Friend::where('friend1_id', $user->id)->get('friend2_id');
+            $myFriends = array();
 
-            return view('users.friends');
+            return view('users.friends')->with(['user' => $user, 'myFriends' => $myFriends]);
 
         }
         return redirect('/login');
