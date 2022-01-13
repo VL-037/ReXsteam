@@ -13,7 +13,7 @@
             </div>
         @endif
         <h2><b>Create Game</b></h2>
-        <form action="/admin/games" method="POST">
+        <form action="/admin/games" method="POST" enctype="multipart/form-data">
             @csrf
 
             <div class="mb-3">

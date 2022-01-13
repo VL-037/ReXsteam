@@ -67,8 +67,8 @@ class GameController extends Controller
             'developer' => 'required',
             'publisher' => 'required',
             'price' => 'required|numeric|min:1|max:1000000',
-            // 'cover' => 'required|mimes:jpg|max:100',
-            // 'trailer' => 'required|mimes:webm|max:102400',
+            'cover' => 'required|mimes:jpg,png|max:800',
+            'trailer' => 'required|mimes:webm|max:102400',
         );
 
         $validator = Validator::make($data, $rule);
@@ -76,6 +76,9 @@ class GameController extends Controller
         if($validator->fails()) {
             return redirect('/admin/games/new')->with('error', 'Invalid input');
         }
+        
+        Storage::disk('public')->put('images', $request->cover);
+        Storage::disk('public')->put('videos', $request->trailer);
 
         Game::create([
             'name' => $data['name'],
@@ -85,8 +88,8 @@ class GameController extends Controller
             'developer' => $data['developer'],
             'publisher' => $data['publisher'],
             'price' => $data['price'],
-            'cover' => $request->cover ? $data['cover'] : "https://mobitekno.com/wp-content/uploads/2017/12/20171108094330_Review_Cover_Fire__Game_Action_Untuk_Fans_Militer_Modern-768x432.jpg",
-            'trailer' => $request->trailer ? $data['trailer'] : "https://www.bigbuckbunny.org/",
+            'cover' => '/uploads/images/'.$request->file('cover')->hashName(),
+            'trailer' => '/uploads/videos/'.$request->file('trailer')->hashName(),
             'onlyAdult' => $request->isAdult ? true : false,
         ]);
 
