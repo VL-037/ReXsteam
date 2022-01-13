@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Validator;
 class RegistrationController extends Controller
 {
     public function index() {
+        $haveUser = Auth::user();
+        if ($haveUser) {
+            return redirect('/');
+        }
         return view('users.register');
     }
 
