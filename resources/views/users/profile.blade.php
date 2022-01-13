@@ -8,7 +8,7 @@
                     <li><a href="/profile" class="text-dark active">Profile</a></li>
                     @if ($user->role == 'Member')
                         <li><a href="/friends" class="text-dark">Friends</a></li>
-                        <li><a href="/transactionHistory" class="text-dark">Transaction History</a></li>
+                        <li><a href="/transactions" class="text-dark">Transaction History</a></li>
                     @endif
                 </ul>
             </div>
