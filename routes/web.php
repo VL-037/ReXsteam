@@ -23,6 +23,8 @@ Route::get('/', [GameController::class, 'index']);
 Route::get('/search', [GameController::class, 'search']);
 Route::get('/games/{gameId}', [GameController::class, 'detail']);
 Route::post('/games/{gameId}', [GameController::class, 'addToCart']);
+Route::get('/games/{gameId}/checkAge', [GameController::class, 'checkAgeForm']);
+Route::post('/games/{gameId}/checkAge', [GameController::class, 'checkAge']);
 
 Route::get('/admin/games', [AdminController::class, 'gameIndex']);
 Route::get('/admin/games/filter', [AdminController::class, 'filterSearch']);
