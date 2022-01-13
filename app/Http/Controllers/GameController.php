@@ -59,13 +59,13 @@ class GameController extends Controller
             $isInCart = Game::join('cart_item', 'game_id', '=', 'game.id')->where(['cart_item.cart_id' => $cart->id])->whereIn('cart_item.game_id', array($gameId))->with('cartItems')->get();
 
             if(count($isInCart) > 0) {
-                return redirect('/games/'.$gameId.'/')->with('error', 'Game is already in cart');
+                return redirect('/cart')->with('error', 'Game is already in cart');
             }
             CartItem::create([
                 'cart_id' => $cart->id,
                 'game_id' => $gameId
             ]);
-            return redirect('/games/'.$gameId.'/')->with('success', 'Game added to cart');
+            return redirect('/cart')->with('success', 'Game added to cart');
         }
         return redirect('/login');
     }

@@ -2,6 +2,25 @@
 @section('content')
 
     <div class="container mt-5">
+        @if (session()->has('success'))
+            <div class="position-absolute">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('success') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        @elseif (session()->has('error'))
+            <div class="position-absolute">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+        @endif
         <h2><b>Shopping Cart</b></h2>
         @foreach ($games as $game)
             <div class="card rounded py-2">
