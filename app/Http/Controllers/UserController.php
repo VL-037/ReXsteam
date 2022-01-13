@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
@@ -124,9 +125,27 @@ class UserController extends Controller
                         ]);
                     }
                 }
-                if ($request->username != $user->username) {
+
+                $data = $request->except(array('_token'));
+                $rule = array(
+                    'urlPic' => 'required|mimes:jpg,png|max:800',
+                );
+
+                $validator = Validator::make($data, $rule);
+
+                if($validator->fails()) {
+                    return redirect('/admin/games/'.$request->id.'/update')->with('error', 'Invalid input');
+                }
+                
+                if ($request->hasFile('urlPic') == true) {
+                    Storage::disk('public')->put('images', $request->urlPic);
                     User::where('id', $user->id)->update([
-                        'username' => $request->username
+                        'fullname' => $request->fullname,
+                        'urlPic' => '/uploads/images/'.$request->urlPic->hashName()
+                    ]);
+                } else {
+                    User::where('id', $user->id)->update([
+                        'fullname' => $request->fullname,
                     ]);
                 }
                 return redirect('/profile')->with(['user' => $user, 'success' => 'Profile Updated']);

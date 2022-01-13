@@ -35,27 +35,30 @@
                 <h3><b>{{ $user->username }} Profile</b></h3>
                 <p><small>This infomation will be displayed publicity, so be careful what you share</small></p>
                 <div id="profile-content">
-                    <form action="/profile" method="POST">
+                    <form action="/profile" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row mb-3">
                             <div class="col">
                                 <label class="form-label" for="username">Username</label>
                                 <input class="form-control" type="text" name="username" id="username"
-                                    value="{{ $user->username }}">
+                                    value="{{ $user->username }}" disabled>
                             </div>
                             <div class="col">
                                 <label class="form-label" for="level">Level</label>
                                 <input class="form-control" type="text" id="level" value="{{ $user->level }}" disabled>
                             </div>
                             <div class="col">
-                                <img src="{{ $user->urlPic }}" alt="{{ $user->username }}_profile"
+                                <label for="urlPic">
+                                    <img src="{{ $user->urlPic }}" alt="{{ $user->username }}_profile"
                                     class="rounded-circle border border-secondary" style="height: 10rem;">
+                                </label>
+                                <input type="file" name="urlPic" id="urlPic">
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="fullname">Fullname</label>
                             <input class="form-control" type="text" name="fullname" id="fullname"
-                                value="{{ $user->fullname }}" disabled>
+                                value="{{ $user->fullname }}">
                         </div>
                         <div class="mb-3">
                             <label class="form-label" for="currPassword">Current Password</label>
