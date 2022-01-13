@@ -22,7 +22,6 @@ class CreateCardTable extends Migration
             $table->string('CVC_CVV');
             $table->string('country');
             $table->string('postalCode');
-            $table->foreignId('user_id')->constrained('user')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
