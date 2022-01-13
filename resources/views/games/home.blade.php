@@ -22,7 +22,7 @@
             </div>
         @endif
         <h1 class="text-center mb-3"><b>Top Games</b></h1>
-        @if ($games == null || count($games) >= 0)
+        @if (count($games) == 0)
             <p class="text-center"><b>No Game can be Displayed</b></p>
         @else
             <ul class="row">
