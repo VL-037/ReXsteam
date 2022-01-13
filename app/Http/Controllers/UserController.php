@@ -29,8 +29,8 @@ class UserController extends Controller
                 }
             }
             return view('users.cart')->with(['games' => $games, 'totalPrice' => $totalPrice]);
-        }
-        return view('users.login');
+        } 
+        return redirect('/');
     }
 
     public function destroyCartItem($cartItemId) {
@@ -51,7 +51,7 @@ class UserController extends Controller
             }
             return back();
         }
-        return view('users.login');
+        return redirect('/');
     }
 
     public function checkout(Request $request) {
@@ -101,7 +101,7 @@ class UserController extends Controller
             CartItem::where('cart_id', $cart->id)->delete();
             return redirect('/cart');
         }
-        return view('users.login');
+        return redirect('/');
     }
 
     public function profile() {
@@ -128,13 +128,13 @@ class UserController extends Controller
 
                 $data = $request->except(array('_token'));
                 $rule = array(
-                    'urlPic' => 'required|mimes:jpg,png|max:800',
+                    'urlPic' => 'mimes:jpg,png|max:800',
                 );
 
                 $validator = Validator::make($data, $rule);
 
                 if($validator->fails()) {
-                    return redirect('/admin/games/'.$request->id.'/update')->with('error', 'Invalid input');
+                    return redirect('/profile')->with('error', 'Invalid input');
                 }
                 
                 if ($request->hasFile('urlPic') == true) {

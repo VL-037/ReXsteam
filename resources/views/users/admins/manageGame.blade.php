@@ -17,8 +17,7 @@
             <p><b>Filter by Games Name</b></p>
             <form action="/admin/games/filter" method="GET" class="mb-3">
                 <div class="w-50">
-                    <input class="form-control mr-sm-2" type="text" name="name" placeholder="Search" aria-label="Search"
-                        required>
+                    <input class="form-control mr-sm-2" type="text" name="name" placeholder="Search" aria-label="Search">
                 </div>
                 @foreach ($categories as $category)
                     <div class="form-check mb-2">

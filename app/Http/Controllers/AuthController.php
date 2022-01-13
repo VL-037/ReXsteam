@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Cookie;
 
 class AuthController extends Controller
 {
     public function index() {
+        $haveUser = Auth::user();
+        if ($haveUser) {
+            return redirect('/');
+        }
         return view('users.login');
     }
 
@@ -17,6 +23,14 @@ class AuthController extends Controller
         $remember = $request->remember;
 
         if (Auth::attempt(['username' => $username, 'password' => $password], $remember)) {
+            $lifetime = time() + 60 * 60 * 2;
+            
+            if ($remember) {
+                $key = Auth::getRecallerName();
+                $value = Auth::user()->getRememberToken();
+                Cookie::queue($key, $value, $lifetime);
+            }
+
             return redirect()->intended();
         }
 

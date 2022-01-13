@@ -12,7 +12,7 @@
 
             <div class="mb-3">
                 <label class="form-label" for="date">Date</label>
-                <input class="form-control" type="date" name="date" id="date">
+                <input class="form-control" type="date" name="date" id="date" required>
             </div>
 
             <div class="mb-3">

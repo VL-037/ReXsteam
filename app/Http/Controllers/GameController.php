@@ -85,7 +85,7 @@ class GameController extends Controller
             'developer' => 'required',
             'publisher' => 'required',
             'price' => 'required|numeric|min:1|max:1000000',
-            'cover' => 'required|mimes:jpg,png|max:800',
+            'cover' => 'required|mimes:jpg|max:800',
             'trailer' => 'required|mimes:webm|max:102400',
         );
 
