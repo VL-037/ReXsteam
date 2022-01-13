@@ -23,7 +23,7 @@ class GameController extends Controller
         $game = Game::where('id', $gameId)->first();
 
         if($game->onlyAdult) {
-            return view('games.checkAge')->with(['game', $game]);
+            return redirect('/games/'.$gameId.'/checkAge')->with(['game', $game]);
         }
 
         $isOwned = Auth::user() ? (GameOwner::where('user_id', Auth::user()->id)->where('game_id', $gameId)->first() ? true : false) : false;
