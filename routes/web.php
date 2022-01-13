@@ -43,11 +43,11 @@ Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
 Route::get('/profile', [UserController::class, 'profile'])->middleware('auth');
 Route::post('/profile', [UserController::class, 'updateProfile'])->middleware('auth');
-Route::get('/friends', [UserController::class, 'friends'])->middleware('auth');
-Route::get('/transactions', [UserController::class, 'transactionHistory']);
+Route::get('/friends', [UserController::class, 'friends'])->middleware('auth', 'role:Member');
+Route::get('/transactions', [UserController::class, 'transactionHistory'])->middleware('auth', 'role:Member');
 
-Route::get('/cart', [UserController::class, 'cart'])->middleware('auth');
-Route::delete('/cart', [UserController::class, 'checkout'])->middleware('auth');
-Route::delete('/cart/{gameId}', [UserController::class, 'destroyCartItem'])->middleware('auth');
-Route::get('/cart/transaction', [UserController::class, 'transactionIndex'])->middleware('auth');
-Route::post('/cart/transaction', [UserController::class, 'checkout'])->middleware('auth');
+Route::get('/cart', [UserController::class, 'cart'])->middleware('auth', 'role:Member');
+Route::delete('/cart', [UserController::class, 'checkout'])->middleware('auth', 'role:Member');
+Route::delete('/cart/{gameId}', [UserController::class, 'destroyCartItem'])->middleware('auth', 'role:Member');
+Route::get('/cart/transaction', [UserController::class, 'transactionIndex'])->middleware('auth', 'role:Member');
+Route::post('/cart/transaction', [UserController::class, 'checkout'])->middleware('auth', 'role:Member');
