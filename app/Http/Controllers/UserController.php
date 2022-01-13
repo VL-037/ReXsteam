@@ -6,6 +6,7 @@ use App\Models\Card;
 use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Friend;
+use App\Models\FriendRequest;
 use App\Models\Game;
 use App\Models\GameOwner;
 use App\Models\User;
@@ -163,14 +164,77 @@ class UserController extends Controller
     public function friends() {
         $user = Auth::user() ? User::where('id', Auth::user()->id)->first() : null;
         if ($user) {
-            $friend1Ids = Friend::where('friend2_id', $user->id)->get('friend1_id');
-            $friend2Ids = Friend::where('friend1_id', $user->id)->get('friend2_id');
-            $myFriends = array();
+            $incomingFriendRequests = User::join('friend_request', 'from_user_id', '=', 'user.id')->where('to_user_id', $user->id)->where('from_user_id', '<>', $user->id)->get();
+            $pendingFriendRequests = User::join('friend_request', 'to_user_id', '=', 'user.id')->where('from_user_id', $user->id)->where('to_user_id', '<>', $user->id)->get();
+            
+            $first = Friend::select('friend1_id')->where('friend2_id', $user->id);
+            $second = Friend::select('friend2_id')->where('friend1_id', $user->id)->union($first)->get();
+            $myFriends = User::whereIn('id', $second)->get();
 
-            return view('users.friends')->with(['user' => $user, 'myFriends' => $myFriends]);
+            return view('users.friends')->with(['user' => $user, 'incomingFriendRequests' => $incomingFriendRequests, 'pendingFriendRequests' => $pendingFriendRequests, 'myFriends' => $myFriends]);
 
         }
         return redirect('/login');
+    }
+
+    public function addFriend(Request $request) {
+        $user = Auth::user() ? User::where('id', Auth::user()->id)->first() : null;
+        if ($user) {
+            $toUsername = $request->username;
+            $toUser = User::where('username', $toUsername)->first();
+
+            if ($toUser == null) {
+                return back()->with('error', 'Username not Found');
+            }
+
+            $requestIsExists = FriendRequest::where('from_user_id', $user->id)->where('to_user_id', $toUser->id)->first() ? true : false;
+
+            if ($requestIsExists) {
+                return back()->with('error', 'Friend Request Already Sent');
+            }
+
+            FriendRequest::create([
+                'from_user_id' => $user->id,
+                'to_user_id' => $toUser->id
+            ]);
+            return back()->with('success', 'Friend Request Sent');
+        }
+        return redirect('/');
+    }
+
+    public function acceptFriend($friendRequestId) {
+        $user = Auth::user() ? User::where('id', Auth::user()->id)->first() : null;
+        if ($user) {
+            $newFriend = FriendRequest::where('id', $friendRequestId)->first('from_user_id');
+            $newFriendUserId = $newFriend->from_user_id;
+            
+            Friend::create([
+                'friend1_id' => $newFriendUserId,
+                'friend2_id' => $user->id,
+            ]);
+
+            FriendRequest::destroy($friendRequestId);
+            return back()->with('success', 'Request Accepted');
+        }
+        return redirect('/');
+    }
+
+    public function rejectFriend($friendRequestId) {
+        $user = Auth::user() ? User::where('id', Auth::user()->id)->first() : null;
+        if ($user) {
+            FriendRequest::destroy($friendRequestId);
+            return back()->with('success', 'Request Rejected');
+        }
+        return redirect('/');
+    }
+
+    public function cancelRequest($friendRequestId) {
+        $user = Auth::user() ? User::where('id', Auth::user()->id)->first() : null;
+        if ($user) {
+            FriendRequest::destroy($friendRequestId);
+            return back()->with('success', 'Request Canceled');
+        }
+        return redirect('/');
     }
 
     public function transactionHistory(){

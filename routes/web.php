@@ -43,7 +43,13 @@ Route::get('/logout', [AuthController::class, 'logout'])->middleware('auth');
 
 Route::get('/profile', [UserController::class, 'profile'])->middleware('auth');
 Route::post('/profile', [UserController::class, 'updateProfile'])->middleware('auth');
+
 Route::get('/friends', [UserController::class, 'friends'])->middleware('auth', 'role:Member');
+Route::post('/friends', [UserController::class, 'addFriend'])->middleware('auth', 'role:Member');
+Route::post('/friends/incoming/{friendRequestId}', [UserController::class, 'acceptFriend'])->middleware('auth', 'role:Member');
+Route::delete('/friends/incoming/{friendRequestId}', [UserController::class, 'rejectFriend'])->middleware('auth', 'role:Member');
+Route::delete('/friends/pending/{friendRequestId}', [UserController::class, 'cancelRequest'])->middleware('auth', 'role:Member');
+
 Route::get('/transactions', [UserController::class, 'transactionHistory'])->middleware('auth', 'role:Member');
 
 Route::get('/cart', [UserController::class, 'cart'])->middleware('auth', 'role:Member');

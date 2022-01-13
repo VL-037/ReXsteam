@@ -21,6 +21,10 @@ class User extends Authenticatable
     public function cart(){
         return $this->hasOne(Cart::class);
     }
+    
+    public function friendRequests() {
+        return $this->hasMany(FriendRequest::class);
+    }
 
     public function friends(){
         return $this->hasMany(Friend::class);
