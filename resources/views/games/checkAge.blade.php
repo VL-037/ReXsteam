@@ -15,6 +15,10 @@
                 <input class="form-control" type="date" name="date" id="date">
             </div>
 
+            <div class="mb-3">
+                <input class="form-control" type="hidden" name="game_id" id="game_id" value="{{$game->id}}">
+            </div>
+
             <button class="btn btn-success">View Page</button>
             <a href="/">
             <button type="button" class="btn">Cancel</button>

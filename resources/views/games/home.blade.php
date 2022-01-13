@@ -11,6 +11,15 @@
                     </button>
                 </div>
             </div>
+        @elseif (session()->has('error'))
+            <div class="position-absolute">
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{ session('error') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
         @endif
         <h1 class="text-center mb-3"><b>Top Games</b></h1>
         <ul class="row">

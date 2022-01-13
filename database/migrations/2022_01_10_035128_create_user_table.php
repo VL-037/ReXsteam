@@ -20,6 +20,7 @@ class CreateUserTable extends Migration
             $table->string('password');
             $table->string('role');
             $table->string('remember_token')->nullable(true);
+            $table->integer('age')->default(0);
             $table->integer('level')->default(0);
             $table->string('urlPic')->default("https://pbs.twimg.com/media/Dm1ncIyXsAAdIkq.jpg");
             $table->timestamps();

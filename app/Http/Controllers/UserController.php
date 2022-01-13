@@ -141,8 +141,6 @@ class UserController extends Controller
         if ($user) {
             $friend1Ids = Friend::where('friend2_id', $user->id)->get('friend1_id');
             $friend2Ids = Friend::where('friend1_id', $user->id)->get('friend2_id');
-            
-            
         }
         return redirect('/login');
     }

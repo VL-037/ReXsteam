@@ -7,6 +7,8 @@ use App\Models\CartItem;
 use App\Models\Category;
 use App\Models\Game;
 use App\Models\GameOwner;
+use DateTime;
+use DateTimeZone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -33,6 +35,22 @@ class GameController extends Controller
     public function checkAgeForm($gameId) {
         $game = Game::where('id', $gameId)->first();
         return view('games.checkAge')->with(['game' => $game]);
+    }
+
+    public function checkAge(Request $request) {
+        $birthDate = date("d/m/Y", strtotime($request->date));
+        $birthDate = explode("/", $birthDate);
+        $age = (date("md", date("U", mktime(0, 0, 0, $birthDate[0], $birthDate[1], $birthDate[2]))) > date("md") ? ((date("Y") - $birthDate[2]) - 1)  : (date("Y") - $birthDate[2]));
+        
+        if ($age < 17) {
+            return redirect('/')->with('error', 'Inappropriate Content');
+        }
+
+        $gameId = $request->gameId;
+
+        $game = Game::where('id', $gameId)->first();
+        $isOwned = Auth::user() ? (GameOwner::where('user_id', Auth::user()->id)->where('game_id', $gameId)->first() ? true : false) : false;
+        return view('games.detail')->with(['game' => $game, 'isOwned' => $isOwned]);
     }
 
     public function addToCart($gameId) {
