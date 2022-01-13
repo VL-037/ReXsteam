@@ -23,11 +23,16 @@ class GameController extends Controller
         $game = Game::where('id', $gameId)->first();
 
         if($game->onlyAdult) {
-            return redirect('/games/'.$gameId.'/checkAge')->with(['game', $game]);
+            return redirect('/games/'.$gameId.'/checkAge');
         }
 
         $isOwned = Auth::user() ? (GameOwner::where('user_id', Auth::user()->id)->where('game_id', $gameId)->first() ? true : false) : false;
         return view('games.detail')->with(['game' => $game])->with(['isOwned' => $isOwned]);
+    }
+
+    public function checkAgeForm($gameId) {
+        $game = Game::where('id', $gameId)->first();
+        return view('games.checkAge')->with(['game' => $game]);
     }
 
     public function addToCart($gameId) {
