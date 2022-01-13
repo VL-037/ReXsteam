@@ -9,6 +9,8 @@ use App\Models\Friend;
 use App\Models\FriendRequest;
 use App\Models\Game;
 use App\Models\GameOwner;
+use App\Models\TransactionDetail;
+use App\Models\TransactionHeader;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -81,16 +83,38 @@ class UserController extends Controller
             }
             
             $user = Auth::user();
-            Card::create([
+            $card = Card::create([
                 'name' => $data['name'],
                 'number' => $data['number'],
                 'expiredDateM' => $data['expiredDateM'],
                 'expiredDateY' => $data['expiredDateY'],
                 'CVC_CVV' => $data['CVC_CVV'],
                 'country' => $data['country'],
-                'postalCode' => $data['postalCode'],
-                'user_id' => $user->id
+                'postalCode' => $data['postalCode']
             ]);
+
+            $gameIds = CartItem::where('cart_id', $cart->id)->get('game_id');
+            
+            $games = Game::whereIn('id', $gameIds)->get();
+            $totalPrice = 0;
+
+            foreach ($games as $game) {
+                $totalPrice += $game->price;
+            }
+
+            $transactionHeader = TransactionHeader::create([
+                'cart_id' => $cart->id,
+                'user_id' => $user->id,
+                'card_id' => $card->id,
+                'totalPrice' => $totalPrice
+            ]);
+
+            foreach ($games as $game) {
+                TransactionDetail::create([
+                    'transaction_header_id' => $transactionHeader->id,
+                    'game_id' => $game->id
+                ]);
+            }
             
             User::where('id', $user->id)->update([
                 'level' => $user->level+=1
@@ -240,7 +264,13 @@ class UserController extends Controller
     public function transactionHistory(){
         $user = Auth::user() ? User::where('id', Auth::user()->id)->first() : null;
         if ($user) {
-            return view('users.transactionHistory')->with('user', $user);
+            $cart = Cart::where('user_id', Auth::user()->id)->first();
+            $transactionHeaders = TransactionHeader::where('user_id', $user->id)->get();
+            $transactionHeaderIds = TransactionHeader::where('user_id', $user->id)->get('id');
+            $transactionDetails = TransactionDetail::whereIn('transaction_header_id', $transactionHeaderIds)->get();
+            $games = Game::join('transaction_detail', 'game_id', '=', 'game.id')->whereIn('transaction_detail.transaction_header_id', $transactionHeaderIds)->with('transactionDetails')->get();
+
+            return view('users.transactionHistory')->with(['transactionHeaders' => $transactionHeaders, 'transactionDetails' => $transactionDetails, 'games' => $games]);
         }
         return redirect('/login');
     }

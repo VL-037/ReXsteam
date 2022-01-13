@@ -19,6 +19,10 @@ class Game extends Model
         return $this->hasMany(CartItem::class);
     }
 
+    public function transactionDetails() {
+        return $this->hasMany(TransactionDetail::class);
+    }
+
     protected $guarded = ['id'];
 }
 
