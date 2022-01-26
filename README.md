@@ -7,6 +7,16 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## How To Run
+- Create a database called ```rexsteam``` in phpmyadmin
+- run these following commands ("--seed" is optional, for seeding purpose)
+```
+composer install
+php artisan migrate:fresh --seed
+php artisan serve
+```
+- open http://localhost:8080/
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
